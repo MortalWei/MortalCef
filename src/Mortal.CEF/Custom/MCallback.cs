@@ -1,6 +1,5 @@
 ﻿using CefSharp;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace mlc
 {
@@ -33,7 +32,8 @@ namespace mlc
 
         public string ReturnJsonFunc(string args1, string args2, string args3)
         {
-            return null;
+            var _result = View.OnSpecial(args1, args2, args3);
+            return _result;
         }
     }
 }

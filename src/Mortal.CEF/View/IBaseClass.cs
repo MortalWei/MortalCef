@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 
 namespace mlc
 {
@@ -64,6 +60,7 @@ namespace mlc
         #region Custom
         void OnRoutine(string args1, string args2, string args3);
         string OnSpecial(string args1, string args2, string args3);
+        string OnReturnJson(string args1, string args2, string args3);
         event EventHandler<HandlerArags> BusinessHandler;
         #endregion
     }

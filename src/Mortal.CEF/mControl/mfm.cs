@@ -1,9 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace mlc.mControl
@@ -178,6 +175,19 @@ namespace mlc.mControl
         /// <param name="args3"></param>
         /// <returns></returns>
         public string OnSpecial(string args1, string args2, string args3)
+        {
+            HandlerArags _Args = new HandlerArags
+            {
+                Parameter1 = args1,
+                Parameter2 = args2,
+                Parameter3 = args3,
+                Status = EnumHandleStatus.Wait
+            };
+            BusinessHandler?.Invoke(null, _Args);
+            return _Args.Status == EnumHandleStatus.Success ? _Args.Result : string.Empty;
+        }
+
+        public string OnReturnJson(string args1, string args2, string args3)
         {
             HandlerArags _Args = new HandlerArags
             {
