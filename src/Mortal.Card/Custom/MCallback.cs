@@ -30,5 +30,10 @@ namespace mlc
         {
             View.OnRoutine(args1, args2, args3);
         }
+
+        public string ReturnJsonFunc(string args1, string args2, string args3)
+        {
+            return null;
+        }
     }
 }
