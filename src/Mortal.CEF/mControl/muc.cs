@@ -40,6 +40,7 @@ namespace mlc.mControl
         /// 构造:带url的构造
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="isLoad"></param>
         public muc(string url, bool isLoad = true) : this()
         {
             //_Browser = new ChromiumWebBrowser(url);
@@ -52,12 +53,24 @@ namespace mlc.mControl
         /// </summary>
         /// <param name="url"></param>
         /// <param name="args"></param>
+        /// <param name="isLoad"></param>
         public muc(string url, string args, bool isLoad = true) : this()
         {
             //_Browser = new ChromiumWebBrowser(url);
             m_Url = url;
             Init(isLoad);
             OnLoad(args);
+        }
+
+        private void InitCefSharp()
+        {
+            var setting = new CefSharp.CefSettings()
+            {
+                Locale = "zh-CN",
+                AcceptLanguageList = "zh-CN",
+                MultiThreadedMessageLoop = true
+            };
+            Cef.Initialize(setting);
         }
         #endregion
 
@@ -76,6 +89,9 @@ namespace mlc.mControl
         private void Init(bool isLoad)
         {
             if (!isLoad) return;
+            if (IsInitialization) return;
+            //if (!Cef.IsInitialized) InitCefSharp();
+
             _Browser = new ChromiumWebBrowser(m_Url);
             _Browser.MenuHandler = new MenuHandler();
             _Browser.RegisterJsObject("mcall", new MCallback(this), false);
