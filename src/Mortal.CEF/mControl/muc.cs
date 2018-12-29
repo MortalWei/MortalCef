@@ -65,12 +65,13 @@ namespace mlc.mControl
         private void InitCefSharp()
         {
             var setting = new CefSharp.CefSettings()
-            {
+             {
                 Locale = "zh-CN",
                 AcceptLanguageList = "zh-CN",
                 MultiThreadedMessageLoop = true
             };
             Cef.Initialize(setting);
+            Cef.EnableHighDPISupport();//调整显示比例100%
         }
         #endregion
 
@@ -90,7 +91,7 @@ namespace mlc.mControl
         {
             if (!isLoad) return;
             if (IsInitialization) return;
-            //if (!Cef.IsInitialized) InitCefSharp();
+            if (!Cef.IsInitialized) { InitCefSharp(); }
 
             _Browser = new ChromiumWebBrowser(m_Url);
             _Browser.MenuHandler = new MenuHandler();
