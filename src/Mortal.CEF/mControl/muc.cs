@@ -65,13 +65,17 @@ namespace mlc.mControl
         private void InitCefSharp()
         {
             var setting = new CefSharp.CefSettings()
-             {
+            {
                 Locale = "zh-CN",
                 AcceptLanguageList = "zh-CN",
                 MultiThreadedMessageLoop = true
             };
             Cef.Initialize(setting);
-            Cef.EnableHighDPISupport();//调整显示比例100%
+            Cef.EnableHighDPISupport();
+        }
+
+        private void EnableHighDPISupport()
+        {
         }
         #endregion
 
@@ -90,13 +94,25 @@ namespace mlc.mControl
         private void Init(bool isLoad)
         {
             if (!isLoad) return;
-            if (IsInitialization) return;
-            if (!Cef.IsInitialized) { InitCefSharp(); }
+            if (IsInitialization)
+            {
+                this.Reload();
+                return;
+            }
+            //if (!Cef.IsInitialized)
+            //{
+            //    InitCefSharp();
+            //}
+
+            //EnableHighDPISupport();
+            //_Browser.SetZoomLevel(0);
 
             _Browser = new ChromiumWebBrowser(m_Url);
+            //_Browser.SetZoomLevel(0);
             _Browser.MenuHandler = new MenuHandler();
             _Browser.RegisterJsObject("mcall", new MCallback(this), false);
             _Browser.Dock = DockStyle.Fill;
+            //Cef.EnableHighDPISupport();
             Controls.Add(_Browser);
             IsInitialization = true;
         }
